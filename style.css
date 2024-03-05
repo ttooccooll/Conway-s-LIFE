@@ -1,0 +1,31 @@
+.cell {
+    width: 1px;
+    height: 1px;
+    border: none;
+}
+
+.cellfilled {
+    background-color: darkorange;
+}
+
+.cellempty {
+    background-color: black;
+}
+
+.cellone {
+    background-color: darkorange;
+    opacity: .3;
+}
+
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#field {
+    border: 1px solid orange;
+    overflow: hidden;
+}
