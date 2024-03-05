@@ -115,7 +115,6 @@ function moveCursor(dx, dy) {
         // Toggle the state of the cell at the cursor position
         cells[cursorY][cursorX] = (cells[cursorY][cursorX] === EMPTY) ? ALIVE : EMPTY;
 
-        // Redraw the grid
         draw();
         // Draw the cursor
         htmlElements[cursorY][cursorX].style.backgroundColor = cursorColor;
