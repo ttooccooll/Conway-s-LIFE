@@ -1,15 +1,13 @@
-.cell {
-    width: 1px;
-    height: 1px;
-    border: none;
-}
-
 .cellfilled {
     background-color: darkorange;
+    width: 3px;
+    height: 3px;
 }
 
 .cellempty {
     background-color: black;
+    width: 3px;
+    height: 3px;
 }
 
 .cellone {
@@ -20,9 +18,16 @@
 body {
     background-color: black;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+#instructions {
+    color: orange;
+    align-self: center;
+    font-family: arial;
 }
 
 #field {

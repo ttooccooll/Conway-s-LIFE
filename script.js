@@ -1,5 +1,5 @@
 
-let size = 200;
+let size = 100;
 let htmlElements;
 let cells;
 let EMPTY = 0;
@@ -79,3 +79,45 @@ function init() {
 }
 
 init();
+
+let cursorX = Math.floor(size / 2);
+let cursorY = Math.floor(size / 2);
+let cursorColor = 'blue';
+
+document.addEventListener('keydown', function(event) {
+    switch(event.key) {
+        case 'ArrowUp':
+            moveCursor(0, -1);
+            break;
+        case 'ArrowDown':
+            moveCursor(0, 1);
+            break;
+        case 'ArrowLeft':
+            moveCursor(-1, 0);
+            break;
+        case 'ArrowRight':
+            moveCursor(1, 0);
+            break;
+    }
+});
+
+function moveCursor(dx, dy) {
+    htmlElements[cursorY][cursorX].style.backgroundColor = '';
+    let newX = cursorX + dx;
+    let newY = cursorY + dy;
+
+    // Check if the new position is within bounds
+    if (newX >= 0 && newX < size && newY >= 0 && newY < size) {
+        // Update the cursor position
+        cursorX = newX;
+        cursorY = newY;
+
+        // Toggle the state of the cell at the cursor position
+        cells[cursorY][cursorX] = (cells[cursorY][cursorX] === EMPTY) ? ALIVE : EMPTY;
+
+        // Redraw the grid
+        draw();
+        // Draw the cursor
+        htmlElements[cursorY][cursorX].style.backgroundColor = cursorColor;
+    }
+}
