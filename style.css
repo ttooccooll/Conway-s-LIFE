@@ -12,18 +12,6 @@
     border-radius: 5px;
 }
 
-.celllast {
-    background-color: black;
-    opacity: .4;
-    border-radius: 5px;
-}
-
-.celltwo {
-    background-color: black;
-    opacity: .2;
-    border-radius: 5px;
-}
-
 body {
     background-color: black;
     display: flex;

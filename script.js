@@ -31,18 +31,6 @@ function draw() {
         for (let x = 0; x < size; x++) {
             let cell = htmlElements[y][x];
             cell.setAttribute('class', 'cell' + (cells[y][x] == 1 ? 'filled' : 'empty'));
-
-            // Check if cell was filled last generation but is now empty
-            if (cells[y][x] == EMPTY && unfilledLastGeneration.includes(y * size + x)) {
-                cell.classList.add('celllast'); // Add the class for cells filled last generation but now empty
-            } else {
-                cell.classList.remove('celllast'); // Remove the class if not applicable
-            }
-            if (cells[y][x] == EMPTY && unfilledTwoGenerationsBack.includes(y * size + x)) {
-                cell.classList.add('celltwo'); // Add the class for cells filled two generations ago but now empty
-            } else {
-                cell.classList.remove('celltwo'); // Remove the class if not applicable
-            }
         }
     }
 }
