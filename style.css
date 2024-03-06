@@ -2,17 +2,26 @@
     background-color: darkorange;
     width: 3px;
     height: 3px;
+    border-radius: 5px;
 }
 
 .cellempty {
     background-color: black;
     width: 3px;
     height: 3px;
+    border-radius: 5px;
 }
 
-.cellone {
-    background-color: darkorange;
-    opacity: .3;
+.celllast {
+    background-color: black;
+    opacity: .7;
+    border-radius: 5px;
+}
+
+.celltwo {
+    background-color: black;
+    opacity: .4;
+    border-radius: 5px;
 }
 
 body {
@@ -22,6 +31,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
 
 #instructions {
@@ -33,4 +43,5 @@ body {
 #field {
     border: 1px solid orange;
     overflow: hidden;
+    border-radius: 5px;
 }

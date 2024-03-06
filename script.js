@@ -1,9 +1,12 @@
-
 let size = 100;
 let htmlElements;
 let cells;
 let EMPTY = 0;
 let ALIVE = 1;
+
+// Array to store IDs of cells that were filled last generation but are not filled this generation
+let unfilledLastGeneration = [];
+let unfilledTwoGenerationsBack = [];
 
 function createField() {
     htmlElements = [];
@@ -26,16 +29,31 @@ function createField() {
 function draw() {
     for (let y = 0; y < size; y++) {
         for (let x = 0; x < size; x++) {
-            htmlElements[y][x].setAttribute('class', 'cell' + (cells[y][x] == 1 ? 'filled' : 'empty'));
+            let cell = htmlElements[y][x];
+            cell.setAttribute('class', 'cell' + (cells[y][x] == 1 ? 'filled' : 'empty'));
+
+            // Check if cell was filled last generation but is now empty
+            if (cells[y][x] == EMPTY && unfilledLastGeneration.includes(y * size + x)) {
+                cell.classList.add('celllast'); // Add the class for cells filled last generation but now empty
+            } else {
+                cell.classList.remove('celllast'); // Remove the class if not applicable
+            }
+            if (cells[y][x] == EMPTY && unfilledTwoGenerationsBack.includes(y * size + x)) {
+                cell.classList.add('celltwo'); // Add the class for cells filled two generations ago but now empty
+            } else {
+                cell.classList.remove('celltwo'); // Remove the class if not applicable
+            }
         }
     }
 }
 
-function countNeighbors(x,y) {
+
+function countNeighbors(x, y) {
     let count = 0;
-    for (dy = -1; dy <= 1; dy++) {
-        for (dx = -1; dx <= 1; dx++) {
-            let nx = (x + dx + size) % size, ny = (y + dy + size) % size;
+    for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+            let nx = (x + dx + size) % size,
+                ny = (y + dy + size) % size;
             count = count + cells[ny][nx];
         }
     }
@@ -44,6 +62,8 @@ function countNeighbors(x,y) {
 
 function newGeneration() {
     let newCells = [];
+    unfilledTwoGenerationsBack = unfilledLastGeneration.slice(); // Copy the unfilledLastGeneration array
+    unfilledLastGeneration = []; // Reset the array before populating for this generation
     for (let i = 0; i < size; i++) {
         newCells.push(new Array(size).fill(EMPTY));
     }
@@ -56,8 +76,12 @@ function newGeneration() {
             if (cells[y][x] == ALIVE && (neighbors == 2 || neighbors == 3)) {
                 newCells[y][x] = ALIVE;
             }
+            // Store IDs of cells that were filled last generation but are now empty
+            if (cells[y][x] == ALIVE && newCells[y][x] == EMPTY) {
+                unfilledLastGeneration.push(y * size + x);
+            }
         }
-    }    
+    }
     cells = newCells;
     draw();
 }
