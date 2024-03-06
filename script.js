@@ -1,4 +1,4 @@
-let size = 100;
+let size = 120;
 let htmlElements;
 let cells;
 let EMPTY = 0;
@@ -46,7 +46,6 @@ function draw() {
         }
     }
 }
-
 
 function countNeighbors(x, y) {
     let count = 0;
@@ -106,7 +105,7 @@ init();
 
 let cursorX = Math.floor(size / 2);
 let cursorY = Math.floor(size / 2);
-let cursorColor = 'blue';
+let cursorColor = 'white';
 
 document.addEventListener('keydown', function(event) {
     switch(event.key) {
@@ -142,5 +141,38 @@ function moveCursor(dx, dy) {
         draw();
         // Draw the cursor
         htmlElements[cursorY][cursorX].style.backgroundColor = cursorColor;
+    }
+}
+
+function updateEmptyClass() {
+    for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+            let cell = htmlElements[y][x];
+            let hasFilledNeighbor = false;
+
+            // Check neighboring cells
+            for (let dy = -2; dy <= 2; dy++) {
+                for (let dx = -2; dx <= 2; dx++) {
+                    let nx = x + dx;
+                    let ny = y + dy;
+
+                    // Check if neighbor is within bounds and not the current cell
+                    if (nx >= 0 && nx < size && ny >= 0 && ny < size && !(dx === 0 && dy === 0)) {
+                        if (cells[ny][nx] === ALIVE) {
+                            hasFilledNeighbor = true;
+                            break;
+                        }
+                    }
+                }
+                if (hasFilledNeighbor) break;
+            }
+
+            // If no filled neighbor within 2 cells, add the 'lonely' class
+            if (!hasFilledNeighbor) {
+                cell.classList.add('celllonely');
+            } else {
+                cell.classList.remove('celllonely'); // Remove the class if not applicable
+            }
+        }
     }
 }
