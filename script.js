@@ -1,4 +1,4 @@
-let size = 120;
+let size = 23;
 let htmlElements;
 let cells;
 let EMPTY = 0;
@@ -93,27 +93,46 @@ init();
 
 let cursorX = Math.floor(size / 2);
 let cursorY = Math.floor(size / 2);
-let cursorColor = 'white';
+let cursorColor = '#0180E1';
+let cursorBackground = 'url("cursor.png")';
+
+const audio = new Audio('beep.mp3');
+audio.volume = 0.1;
+
+let audioPlayed = false; // Flag to track whether the audio has been played
 
 document.addEventListener('keydown', function(event) {
-    switch(event.key) {
-        case 'ArrowUp':
-            moveCursor(0, -1);
-            break;
-        case 'ArrowDown':
-            moveCursor(0, 1);
-            break;
-        case 'ArrowLeft':
-            moveCursor(-1, 0);
-            break;
-        case 'ArrowRight':
-            moveCursor(1, 0);
-            break;
+        switch(event.key) {
+            case 'ArrowUp':
+                moveCursor(0, -1);
+                break;
+            case 'ArrowDown':
+                moveCursor(0, 1);
+                break;
+            case 'ArrowLeft':
+                moveCursor(-1, 0);
+                break;
+            case 'ArrowRight':
+                moveCursor(1, 0);
+                break;
+        }
+        if (!audioPlayed) {
+        // Set the flag to true to indicate that the audio has been played
+        audioPlayed = true;
+        // Play the audio
+        audio.play();
     }
 });
 
+document.addEventListener('keyup', function(event) {
+    // Reset the flag when the key is released
+    audioPlayed = false;
+});
+
+
 function moveCursor(dx, dy) {
     htmlElements[cursorY][cursorX].style.backgroundColor = '';
+    htmlElements[cursorY][cursorX].style.backgroundImage = '';
     let newX = cursorX + dx;
     let newY = cursorY + dy;
 
@@ -122,13 +141,12 @@ function moveCursor(dx, dy) {
         // Update the cursor position
         cursorX = newX;
         cursorY = newY;
-
-        // Toggle the state of the cell at the cursor position
-        cells[cursorY][cursorX] = (cells[cursorY][cursorX] === EMPTY) ? ALIVE : EMPTY;
+        cells[cursorY][cursorX] = ALIVE;
 
         draw();
         // Draw the cursor
         htmlElements[cursorY][cursorX].style.backgroundColor = cursorColor;
+        htmlElements[cursorY][cursorX].style.backgroundImage = cursorBackground;
     }
 }
 

@@ -1,19 +1,22 @@
 .cellfilled {
-    background-color: darkorange;
-    width: 2px;
-    height: 2px;
-    border-radius: 5px;
+    background: url('car.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 30px;
+    height: 30px;
+    background-color: #45AE01;
 }
 
 .cellempty {
-    background-color: black;
-    width: 2px;
-    height: 2px;
-    border-radius: 5px;
+    background: linear-gradient(#F67500, #F67500);
+    width: 30px;
+    height: 30px;
 }
 
 body {
-    background-color: black;
+    background: url('board.jpg');
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,13 +26,18 @@ body {
 }
 
 #instructions {
-    margin-top: -5%;
-    color: orange;
+    margin-top: -10px;
+    background: linear-gradient(to right, #7FA101, #D6C809);
+    box-shadow: 0 0 0 2px black; 
+    color: black;
     align-self: center;
     font-family: arial;
 }
 
 #field {
-    border: 1px solid orange;
+    margin-top: -10px;
+    background: black;
+    border: 8px solid #C9BA99;
+    box-shadow: 0 0 0 2px black; 
     overflow: hidden;
 }
